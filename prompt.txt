@@ -1,0 +1,92 @@
+I want to create an app that allows users to create and comment on posts, for this, I want to create a new Rails API with the following features:
+- User authentication:
+  - User can sign up
+  - User can sign in
+  - User can sign out
+  - User can reset their password
+  - User can change their email
+  - User can change their password
+  - User can delete their account
+- Post interactions:
+  - User can create a post
+  - User can comment on a post
+  - User can like a post
+  - User can see the list of comments on a post
+  - User can see the list of likes on a post
+- User interactions:
+  - User can follow other users
+  - User can see the list of followers
+  - User can see the list of following
+  - User can see the list of posts they liked
+  - User can see the list of posts they commented on
+- User social interactions:
+  - User can see the list of posts they are mentioned in
+  - User can see the list of posts they are tagged in
+- Notifications:
+  - User can see the list of notifications
+  - User can see the list of notifications they have read
+  - User can see the list of notifications they have unread
+  - User can mark a notification as read
+  - User can mark a notification as unread
+- Feed:
+  - User can see the feed (posts of followed users)
+- Search:
+  - User can search for other users by:
+    - Name
+    - Username
+    - Email
+    - Location
+  - User can search for posts by:
+    - Content
+    - User
+    - Tags
+    - Comments
+  - User can sort posts by:
+    - Newest
+    - Oldest
+    - Most liked
+    - Most commented
+    - Most recently commented
+    - Most recently liked
+- Settings:
+  - User can change their profile picture
+  - User can change their cover picture
+  - User can change their bio
+  - User can change their website
+  - User can change their email
+  - User can change their password
+  - User can delete their account
+
+Database schema (not including associations, ids, timestamps, etc.):
+  - Users:
+    - First Name
+    - Last Name
+    - Profile Picture
+    - Cover Picture
+    - Bio
+    - Website
+    - Location
+    - Username
+    - Email
+    - Password
+  - Posts:
+    - Content
+    - Tags
+  - Comments:
+    - Content
+  - Likes
+  - Follows
+  - Notifications
+
+Technical requirements:
+  - Use Rails 8.0
+  - Use Ruby 3.4.4 (already installed, no need to install it)
+  - Use PostgreSQL
+  - Use JBuilder
+  - Use Brakeman
+  - Use Rubocop
+  - Use RSpec and factory bot for testing
+  - Use Active Storage for file storage
+  - Use Active Job for background processing
+  - Use Active Storage for file storage
+  - Use swagger for API documentation
