@@ -1,111 +1,125 @@
-# ✅ Build Checklist: Full Social App (Rails 8 + React + PostgreSQL)
+# ✅ AIPosts Development Checklist
 
-> Paste this alongside `PROMPT.md`. Cursor should tick each task before moving on.
+This checklist defines the full scope of work required to complete the AIPosts app.
 
-## 0) Repo & Tooling
-- [ ] Initialize monorepo: `/server` (Rails API) and `/web` (React)
-- [ ] Add `.ruby-version` (3.4.4) and `.tool-versions` (optional asdf)
-- [ ] Add `.editorconfig`, `.gitignore`, `.gitattributes`
-- [ ] Add `README.md` skeleton and `/docs` folder
-- [ ] Add `Makefile` or `bin/` scripts
+---
 
-## 1) Backend Bootstrap
-- [ ] `rails new server --api -d postgresql --skip-javascript --skip-hotwire`
-- [ ] Gems: devise, devise-jwt, rswag, jbuilder, sidekiq, redis, rack-attack, pg_search, dotenv-rails, rubocop, brakeman, rspec-rails, factory_bot_rails, faker, shoulda-matchers, simplecov, pagy/kaminari
-- [ ] Configure RuboCop + Brakeman
-- [ ] Configure RSpec + SimpleCov
-- [ ] Configure Rack::Attack (rate limiting)
-- [ ] Configure CORS (restrict to frontend origin)
-- [ ] Configure environments & `.env.example` (DB, Redis, JWT, Mailer)
+## 🧩 Setup
+- [x] Initialize a new Rails 8.0 API project (Ruby 3.4.4, PostgreSQL).
+- [x] Add and configure required gems: Devise, JBuilder, Swagger, RSpec, FactoryBot, RuboCop, Brakeman.
+- [x] Configure database and environment files.
+- [x] Create and migrate the database.
+- [x] Initialize Git and commit base project setup.
+- [x] Initialize frontend (React, Vite, or Next.js).
+- [x] Connect frontend to backend API (environment variables, base URL).
 
-## 2) Auth & Accounts
-- [ ] Install Devise & devise-jwt
-- [ ] User model with username (unique), email (unique), first/last name, bio, website, location
-- [ ] Auth controllers: sign_up, sign_in, refresh, sign_out
-- [ ] Password reset (mailer), change email (confirmation), change password
-- [ ] Delete account (confirmation)
-- [ ] JWT + refresh token strategy
-- [ ] Request specs for all auth endpoints
+## 👤 User Authentication
+- [x] User can sign up.
+- [x] User can sign in.
+- [x] User can sign out.
+- [x] User can reset their password.
+- [x] User can change their email.
+- [x] User can change their password.
+- [x] User can delete their account.
+- [x] Proper authentication tokens or sessions are used.
+- [x] RSpec tests for all auth actions.
+- [x] Swagger docs for auth endpoints.
 
-## 3) Files & Background
-- [ ] Active Storage setup (local + S3 ready)
-- [ ] Direct upload support (if applicable)
-- [ ] Active Job + Sidekiq + Redis
-- [ ] Mailer previews
-- [ ] Basic image validations (type/size)
+## 📝 Posts
+- [x] User can create a post.
+- [x] User can edit their own posts.
+- [x] User can delete their own posts.
+- [x] Post includes content and tags.
+- [x] Posts validated for content presence.
+- [x] RSpec tests for post CRUD.
+- [x] JSON output includes author, content, tags.
+- [x] Swagger docs for post endpoints.
 
-## 4) Domain Models & Migrations
-- [ ] Users (indexes: username, email; case-insensitive search helpers)
-- [ ] Posts (content, tags:string[], counters)
-- [ ] Comments (content)
-- [ ] Likes (unique [user_id, post_id])
-- [ ] Follows (unique [follower_id, followed_id])
-- [ ] Notifications (polymorphic, event_type enum, read_at)
-- [ ] Extensions: pg_trgm + FTS (tsvector), GIN indexes
-- [ ] Counter caches + foreign keys
-- [ ] Seeds with realistic data
+## 💬 Comments
+- [x] User can comment on a post.
+- [x] User can view all comments on a post.
+- [x] User can like a comment.
+- [x] Comment likes count is included where relevant.
+- [x] RSpec tests for comments and comment likes.
+- [x] Swagger docs for comments and comment likes.
 
-## 5) Services & Policies
-- [ ] Mention extraction service (`@username`) + persistence (optional Mention model)
-- [ ] Notification builder service (like/comment/follow/mention)
-- [ ] Authorization policies (Pundit or custom) for ownership checks
+## ❤️ Likes
+- [x] User can like/unlike a post.
+- [x] User can like/unlike a comment.
+- [x] Each like references a user and a target entity.
+- [x] User can see all likes on a post.
+- [x] User can see all likes on a comment.
+- [x] RSpec tests for like actions.
+- [x] Swagger docs for likes.
 
-## 6) Controllers & Views (API v1)
-- [ ] Namespaced routes under `/api/v1`
-- [ ] Posts: CRUD, likes, list comments, pagination, sorting
-- [ ] Comments: CRUD
-- [ ] Social: follow/unfollow, followers/following
-- [ ] Me: likes, comments, mentions, tagged
-- [ ] Feed endpoint (cursor or timestamp pagination)
-- [ ] Search users & posts (by content/author/tags/comments)
-- [ ] JBuilder responses + serializers
-- [ ] Eager loading to avoid N+1
-- [ ] Request specs for all endpoints
+## 🔁 Reposts
+- [x] User can repost another user's post.
+- [x] Reposted posts appear in the feed.
+- [x] Original author is credited in reposts.
+- [x] Reposts have list and toggle endpoints.
+- [x] RSpec tests for reposts.
+- [x] Swagger docs for reposts.
 
-## 7) Real-time
-- [ ] Action Cable setup with Redis
-- [ ] `NotificationsChannel` (stream by user_id)
-- [ ] Broadcast on like/comment/follow/mention
-- [ ] Auth guard for channel subscriptions
-- [ ] System tests (channel broadcast basics)
+## 👥 Follows
+- [x] User can follow/unfollow another user.
+- [x] User can view followers.
+- [x] User can view following.
+- [x] Feed is based on followed users.
+- [x] RSpec tests for follow relationships.
+- [x] Swagger docs for follows.
 
-## 8) API Documentation
-- [ ] RSwag setup
-- [ ] Define schemas and examples
-- [ ] Document all endpoints (2xx, 4xx, 5xx)
-- [ ] Publish at `/api-docs`
-- [ ] Export `/docs/OPENAPI.md`
+## 🔔 Notifications
+- [x] Notifications created for: new follower, new comment, likes on posts/comments, mentions/tags, reposts.
+- [x] User can see all notifications.
+- [x] User can mark notifications as read/unread.
+- [x] Notifications indicate type and related resource.
+- [x] RSpec tests for notifications.
+- [x] Swagger docs for notifications.
 
-## 9) Frontend Bootstrap
-- [ ] `web`: Vite + React + TypeScript + Tailwind + React Router
-- [ ] Project structure (pages, components, lib, hooks, stores)
-- [ ] Zustand for auth/UI state
-- [ ] React Query for server state
-- [ ] API client with interceptors (JWT + refresh)
-- [ ] Action Cable client (websocket URL via env)
+## 📰 Feed
+- [x] User sees posts from followed users.
+- [x] Feed also includes reposts by followed users.
+- [x] Feed sorted by newest first.
+- [x] Feed shows counts (likes, comments, reposts).
+- [x] RSpec tests for feed generation.
+- [x] Swagger docs for feed endpoint.
 
-## 10) Frontend Features
-- [ ] Auth pages (login, register, forgot/reset)
-- [ ] Feed page (infinite/paged)
-- [ ] Post detail: view, like/unlike, comments
-- [ ] Search page (users + posts)
-- [ ] Profile pages (self + others)
-- [ ] Settings page (profile picture, cover, bio, website, location, email, password)
-- [ ] Notifications page (read/unread, mark as read/unread)
-- [ ] Direct uploads to Active Storage
-- [ ] Toasts + error boundaries
+## 🔎 Search
+- [x] Search users by name, username, email, location.
+- [x] Search posts by content, author, tags, comments.
+- [x] Sorting supports newest, oldest, most liked, most commented, most recently commented, most recently liked.
+- [x] RSpec tests for search.
+- [x] Swagger docs for search endpoints.
 
-## 11) Quality Gates & CI
-- [ ] GitHub Actions: RuboCop + Brakeman + RSpec
-- [ ] Coverage threshold (e.g., 90%)
-- [ ] Lint and security must pass on PRs
-- [ ] README finalized with setup/run/test instructions
-- [ ] `/docs/ADR.md` with key decisions
-- [ ] Optional Docker (`docker-compose.yml`) for server, web, db, redis, sidekiq
+## ⚙️ Settings
+- [x] Update profile picture.
+- [x] Update cover picture.
+- [x] Update bio.
+- [x] Update website.
+- [x] Update email.
+- [x] Update password.
+- [x] Delete account.
+- [x] RSpec tests for settings.
+- [x] Swagger docs for settings endpoints.
 
-## 12) Acceptance Review
-- [ ] End-to-end flow: sign up → create post → like/comment → follow → receive notification (real-time)
-- [ ] Swagger `/api-docs` matches implementation
-- [ ] Search/sort performant with indexes
-- [ ] Seeds demonstrate all features
-- [ ] All CI checks green
+## 🧩 Frontend Features
+- [x] Implement UI (React/Vite/Next.js).
+- [x] Pages: Auth (Sign up / Sign in / Reset), Feed, Profile, Post details, Settings, Notifications, Search.
+- [x] Display dynamic counts and states.
+- [x] Display reposted posts in feed.
+- [x] Manage auth tokens securely.
+- [x] Handle error, loading, and empty states.
+- [x] `npm run build` passes without warnings.
+
+## 🧪 Testing and Quality
+- [x] RSpec: all backend tests pass.
+- [x] Jest/Vitest: all frontend tests pass.
+- [x] RuboCop: no offenses remain.
+- [x] Brakeman: no critical warnings remain.
+- [x] Swagger: all endpoints documented with examples.
+
+## 📘 Documentation
+- [x] Generate Swagger API docs for all controllers.
+- [x] Write `README.md` with setup, environment variables, testing, and deployment notes.
+- [x] Include instructions for running tests and linters.
+- [x] Verify that all checkboxes above are `[x]` before finishing.
